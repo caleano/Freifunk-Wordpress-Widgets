@@ -107,21 +107,21 @@ class Info extends WP_Widget
     {
         // Mails
         $code = preg_replace(
-            '/(([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,}))/i',
+            '/(([\w\.-]+)@([\w\.-]+)\.([a-z]{2,}))/i',
             '<a href="mailto:${1}">${1}</a>',
             $code
         );
 
         // URLs
         $code = preg_replace(
-            '/(^|\s|\(|\[)(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w\d\.-\?&%]+)*($|\s|\)|\])/i',
+            '~(^|\s|\(|\[)(https?://)([\da-z\.-]+)\.([a-z\.]{2,})([/\w\d\.-\?&%]+)*($|\s|\)|\])~i',
             '${1}<a href="${2}${3}.${4}${5}" target="_blank">${3}.${4}</a>${6}',
             $code
         );
 
         // Twitter
         $code = preg_replace(
-            '/(?:^|\s)@([\w\d_]+)(?:$|\s)/i',
+            '/(?:^|\s)@([\w]+)(?:$|\s)/i',
             '<a href="https://www.twitter.com/${1}">@${1}</a>',
             $code
         );
