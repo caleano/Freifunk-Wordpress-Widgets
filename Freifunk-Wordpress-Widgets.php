@@ -4,7 +4,7 @@
 Plugin Name: Freifunk Wordpress Widgets
 Plugin URI: https://caleano.com
 Description: Ein Wordpress Plugin für Freifunk Frankfurt
-Version: 1.0.1
+Version: 1.0.2
 Author: Igor Scheller <igor.scheller@igorshp.de>
 Author URI: https://igorshp.de
 License: MIT

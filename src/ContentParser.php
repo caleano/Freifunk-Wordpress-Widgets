@@ -26,7 +26,7 @@ class ContentParser
                                      => '${1}<a href="${2}" target="_blank">${4}.${5}</a>${7}',
 
         // Twitter
-        '/(^|\s)@([\w]+)($|\s)/i'    => '${1}<a href="https://www.twitter.com/${1}">@${2}</a>${3}',
+        '/(^|\s)@([\w]+)($|\s)/i'    => '${1}<a href="https://www.twitter.com/${2}">@${2}</a>${3}',
     ];
 
     /**
