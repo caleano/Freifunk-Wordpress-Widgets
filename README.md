@@ -11,7 +11,8 @@ Usage:
 Mail: email@domain.tld
 Twitter: @MyTwitterAccount
 Stats: [include:stats.txt]
-Website: http://foo.bar
+Website: http://foo.bar/batz&more
+More URLs: [URL|http://foo.bar/batz&more] & [http://foo.bar/batz&more]
 ```
 
 ## License

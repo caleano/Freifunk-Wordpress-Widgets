@@ -1,4 +1,4 @@
-<?php
+<?php defined('ABSPATH') or die('NOPE');
 
 /*
 Plugin Name: Freifunk Wordpress Widgets
@@ -10,6 +10,7 @@ Author URI: https://igorshp.de
 License: MIT
 */
 
+require_once __DIR__ . '/src/ContentParser.php';
 require_once __DIR__ . '/src/InfoWidget.php';
 
 add_action('widgets_init', function () {

@@ -1,5 +1,8 @@
 <?php namespace Caleano\Freifunk\Widget;
 
+defined('ABSPATH') or die('NOPE');
+
+use Caleano\Freifunk\ContentParser;
 use WP_Widget;
 
 /**
@@ -33,16 +36,16 @@ class Info extends WP_Widget
         echo $args['before_widget'];
 
         if (!empty($instance['title'])) {
-            echo $args['before_title']
+            echo ((isset($args['before_title'])) ? $args['before_title'] : '')
                 . apply_filters('widget_title', $instance['title'])
-                . $args['after_title'];
+                . ((isset($args['after_title'])) ? $args['after_title'] : '');
         }
 
         if (!empty($instance['text'])) {
             echo '<p>'
-                . $args['before_text']
+                . ((isset($args['before_text'])) ? $args['before_text'] : '')
                 . apply_filters('widget_text', $this->parseOutput($instance['text']))
-                . $args['after_text']
+                . ((isset($args['before_text'])) ? $args['after_text'] : '')
                 . '</p>';
         }
 
@@ -59,7 +62,6 @@ class Info extends WP_Widget
     {
         $title = !empty($instance['title']) ? $instance['title'] : 'Info';
         $text = !empty($instance['text']) ? $instance['text'] : '';
-
         ?>
         <p>
             <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:'); ?></label>
@@ -105,39 +107,7 @@ class Info extends WP_Widget
      */
     private function parseOutput($code)
     {
-        // Mails
-        $code = preg_replace(
-            '/(([\w\.-]+)@([\w\.-]+)\.([a-z]{2,}))/i',
-            '<a href="mailto:${1}">${1}</a>',
-            $code
-        );
-
-        // URLs
-        $code = preg_replace(
-            '~(^|\s|\(|\[)(https?://)([\da-z\.-]+)\.([a-z\.]{2,})([/\w\d\.-\?&%]+)*($|\s|\)|\])~i',
-            '${1}<a href="${2}${3}.${4}${5}" target="_blank">${3}.${4}</a>${6}',
-            $code
-        );
-
-        // Twitter
-        $code = preg_replace(
-            '/(?:^|\s)@([\w]+)(?:$|\s)/i',
-            '<a href="https://www.twitter.com/${1}">@${1}</a>',
-            $code
-        );
-
-        // Includes
-        $code = preg_replace_callback(
-            '/\[include\:(\w+\.txt)\]/i',
-            function ($matches) {
-                if (empty($matches[1]) || !file_exists($matches[1])) {
-                    return '';
-                }
-
-                return file_get_contents($matches[1]);
-            },
-            $code
-        );
+        $code = ContentParser::parse($code);
 
         // Create Newlines
         $code = nl2br($code);
